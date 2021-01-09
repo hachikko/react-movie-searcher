@@ -1,4 +1,6 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Main from './components/MainComponent';
 
 class App extends React.Component {
   constructor() {
@@ -7,8 +9,10 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="badge badge-primary">How are you doing today?</div>
-    )
+      <Router>
+       <Main />
+      </Router>
+    );
   }
 }
 
