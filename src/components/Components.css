@@ -1,12 +1,11 @@
-/* #navbar {
-    animation: smoothTransform 12s ease 0.1s 1;
+.movie-list-container {
+    width: 100%;
+    min-height: 82vh;
+    background: #3a3838;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
 }
-
-@keyframes smoothTransform {
-    from {
-        height: 100%;
-    }
-    to {
-        height: auto;
-    }
-} */
