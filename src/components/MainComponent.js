@@ -1,18 +1,15 @@
 import React from 'react';
-import Nav from './NavComponent';
-import MovieWrapper from './WrapperComponent';
-import { Route, Switch } from 'react-router-dom';
+import SwitchRouter from './RouteComponent';
+import MoreInfo from './MoreInfoComponent';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 class Main extends React.Component {
     render() {
         return (
-            <>
-                  <Nav />
-                  <Switch>
-                      <Route path="/search/:searchVal" component={MovieWrapper} />
-                      {/* <Route path="/wishlist" component={WishList} /> */}
-                  </Switch>
-              </>
+            <Switch>
+                <Route exact path="/id/:id" component={MoreInfo} />
+                <Route path="/" component={SwitchRouter} />
+            </Switch>
         );
     }
 }

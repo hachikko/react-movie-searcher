@@ -4,8 +4,78 @@
     background: #3a3838;
     border-radius: 10px;
     margin-bottom: 10px;
+    padding: 10px 0px 10px 0px;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-around;
     flex-wrap: wrap;
 }
+
+.movie-card {
+    background: #272626;
+    padding: 2px;
+    width: 28.5%;
+    margin: 8px;
+    cursor: pointer;
+    /* overflow: hidden; */
+}
+
+.movie-card:hover .card-img-top {
+    transition: filter 0.6s ease;
+    filter: brightness(25%);
+}
+
+.card-img-overlay {
+    position: absolute;
+    bottom: 40%;
+    transform: translateY(40%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    text-align: center;
+    font: 1em Poppins, sans-serif;
+    transition: opacity 0.3s ease;
+    transition: bottom 0.4s ease;
+}
+
+.movie-card:hover .card-img-overlay {
+    bottom: 50%;
+    transform: translateY(50%);
+    opacity: 1;
+    pointer-events: all;
+}
+
+@media screen and (max-width: 768px) {
+    .movie-card {
+        width: 45%;
+        height: 19% !important;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .card-details-text {
+        display: none !important;
+    }
+}
+
+@media screen and (min-width: 839px) {
+    .card-details-text {
+        display: block !important;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .card-details-text {
+        display: none !important;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .card-details-text {
+        display: block !important;
+    }
+}
+

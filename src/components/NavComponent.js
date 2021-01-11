@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Components.css';
 import homeimg from '../images/homeImage.jpeg';
 import { useHistory } from 'react-router-dom';
@@ -6,6 +6,15 @@ import { useHistory } from 'react-router-dom';
 function Nav() {
     const [transform, setState] = useState(false);
     const searchHistory = useHistory(); 
+
+    useEffect(() => {
+        if(window.location.pathname === "/") {
+            setState(false);
+        }
+        else if(window.location.pathname !== "/") {
+            setState(true);
+        }
+    })
     
     function search(e) {
         let searchInput = document.querySelector("#searchInput").value;
