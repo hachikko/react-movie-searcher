@@ -7,7 +7,7 @@ class Main extends React.Component {
     render() {
         return (
             <Switch>
-                <Route exact path="/id/:id" component={MoreInfo} />
+                {/* <Route exact path="/id/:id" component={MoreInfo} /> */}
                 <Route path="/" component={SwitchRouter} />
             </Switch>
         );
