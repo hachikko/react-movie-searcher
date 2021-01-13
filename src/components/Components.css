@@ -90,6 +90,18 @@
     justify-content: center;
 }
 
+.dFlexSpaced-a {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.dFlexSpaced-b {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .dFlexCol {
     display: flex;
     align-items: center;
@@ -164,6 +176,10 @@
 
 .tgrey {
     color: #737373;
+}
+
+.t-decoration-none {
+    text-decoration: none !important;
 }
 
 .card-img-show {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Components.css';
 import homeimg from '../images/homeImage.jpeg';
-import { useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 function Nav() {
     const [transform, setState] = useState(false);
@@ -28,7 +28,7 @@ function Nav() {
         return (
             <nav className={!transform ? "navbar navbar-dark bg-dark fixed-top h-100 navbar-expand-sm" : "navbar navbar-dark bg-dark sticky-top navbar-expand-sm"} style={!transform ? {background: `url(${homeimg})`} : {transition: "height 10s ease !important"}} id="navbar">
                 <div className={!transform ? "container-fluid fixed-top mt-2" : "d-none"}>
-                   <a href="#" className="navbar-brand mr-auto">Movie Searcher</a>
+                   <span className="navbar-brand mr-auto">Movie Searcher</span>
                    <div className="ml-auto d-flex align-items-center justify-content-center">
                            <button className="btn">
                                 <span className="far fa-bookmark mr-2 text-white"></span>
@@ -36,7 +36,7 @@ function Nav() {
                            </button>
                     </div>
                 </div>
-                <a href="#" className={!transform ? "navbar-brand mr-auto d-none" : "navbar-brand mr-auto"}>Movie Searcher</a>
+                <NavLink to="/" ><span className={!transform ? "navbar-brand mr-auto d-none" : "navbar-brand mr-auto"}>Movie Searcher</span></NavLink>
                 <div className="container mr-0 pr-0">
                      <div className="row-fluid d-flex justify-content-center w-100">
                         <div className="col-10">
@@ -53,7 +53,7 @@ function Nav() {
                         <div className={!transform ? "col d-none d-sm-flex align-items-center justify-content-center" : "col-2 d-flex align-items-center justify-content-center"}>
                            <button className={!transform ? "btn d-none" : "btn"} >
                                 <span className="far fa-bookmark mr-2 text-white"></span>
-                                <span className="d-none d-lg-inline text-white">Wish List</span>
+                                <NavLink to="/wishlist" className="t-decoration-none"><span className="d-none d-lg-inline text-white">Wish List</span></NavLink>
                            </button>
                         </div>
                      </div>

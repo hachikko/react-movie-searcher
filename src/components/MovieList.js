@@ -1,20 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import defaultimg from '../images/notfound.svg';
+import binocular from '../images/binocular.svg';
 import './Components.css';
 import { useHistory } from 'react-router-dom';
 
 function MovieList(props) {
     const [movieData, setMovieData] = useState(null);
+    const [pageCount, setPageCount] = useState(1);
+
     const history = useHistory();
     
     useEffect(() => {
-        let url = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&s=${props.searchValue.replace(/-+/g, " ")}`;
+        let url = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&s=${props.searchValue.replace(/-+/g, " ")}&page=${pageCount}`;
         let xml = new XMLHttpRequest();
         xml.open("GET", url, true);
         xml.onload = () => {
             fetchData(xml.response);
         }
         xml.send();
+
+        if(!sessionStorage.pathname) {
+            sessionStorage.setItem("pathname", JSON.stringify(`/search/${props.searchValue}`));
+        }
+    
+        if(sessionStorage.pathname) {
+            let previousPathname = JSON.parse(sessionStorage.getItem("pathname"));
+            if(window.location.pathname !== previousPathname) {
+                setPageCount(1);
+                sessionStorage.setItem("pathname", JSON.stringify(`/search/${props.searchValue}`));
+            }
+        }
     })
 
     function fetchData(data) {
@@ -52,9 +67,21 @@ function MovieList(props) {
         });
         }
         else if(movie_D.Response === "False") {
-            movies = <h2>Movie Not Found!</h2>;
+            movies = (
+                <div className="dFlexColSpaced" style={{width: "50%", height: "50%"}}>
+                    <img src={binocular} width="200" height="100" alt="not found image" />
+                    <h2>Movie Not Found!</h2>
+                </div>
+            );
         }
     }
+
+    let pageBtns = (
+        <div className="col-12 dFlex justify-content-between">
+            {movieData !== null && pageCount > 1 ? <button className="btn btn-outline-warning" onClick={() => setPageCount(pageCount-1)}><i className="fa fa-arrow-left pr-2"></i>Previous</button> : <div></div>}
+            {movieData !== null && movie_D.Search.length < 10 ? <div></div> : <button className="btn btn-outline-warning" onClick={() => setPageCount(pageCount+1)}><i className="fa fa-arrow-right pr-2"></i>Next</button>}
+        </div>
+    )
 
     return (
         <div className="container-fluid" style={{paddingTop: "20px", minHeight: "91.5vh"}}>
@@ -65,6 +92,7 @@ function MovieList(props) {
                 <div className="col-12 d-flex justify-content-center">
                     <div className="movie-list-container">
                         {movieData !== null ? movies : <div></div>}
+                        {movieData !== null && movie_D.totalResults > 10 ? pageBtns : null}
                     </div>
                 </div>
             </div>

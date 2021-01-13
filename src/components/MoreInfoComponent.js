@@ -28,12 +28,13 @@ function MoreInfo({ match }) {
         myMovie =  (
                 <>
                     <div className="card bg-transparent dFlex movie-card-show" style={{height: "80%", border: "none"}}>
-                        <img src={tMovie.Poster !== "N/A" ? tMovie.Poster : defaultimg} className="img-fluid card-img mt-2 card-img-show" alt="Movie Image" />
+                        <img src={tMovie.Poster !== "N/A" ? tMovie.Poster : defaultimg} className="img-fluid card-img mt-2 card-img-show" alt="Movie Poster Image" />
                         <div className="card-body pl-0 pb-0">
                             <span className="card-title fpoppins-1" style={{color: "#f0f5f1"}}>{tMovie.Title}</span>
                         </div>
-                    <div className="pt-5">
+                    <div className="pt-5 w-100 dFlexSpaced-b">
                         <button className="btn btn-outline-warning mb-2" onClick={() => window.history.back()}><i className="fa fa-arrow-left pr-2"></i>Go Back</button>
+                        <span type="button" data-toggle="tooltip" data-placement="top" title="Add To WishList"><i className="far fa-bookmark pr-3 text-white"></i></span>
                     </div>
                     </div>
                 </>
@@ -154,7 +155,7 @@ function MoreInfo({ match }) {
                 <div className="col-12 col-xl-8 dFlexCol" style={{background: "#3a3838", height: "100%"}}>
                     {movieInfo}
                     <div className="container">
-                        {thisMovie !== null ? <a href={`https://www1.cmovies.ac/movie/search/${tMovie.Title.replace(/\s+/g, "-").replace(/[:+|?]/g, "").toLowerCase()}`} target="_blank" rel="noopener" className="btn btn-outline-warning float-right mt-4" style={{paddingLeft: "40px", paddingRight: "40px"}}><i className="fa fa-play pr-2"></i>Watch {tMovie.Type}</a> : null}
+                        {thisMovie !== null ? <a href={`https://www1.cmovies.ac/movie/search/${tMovie.Title.replace(/\s+/g, "-").replace(/[:+|?|,+]/g, "").toLowerCase()}`} target="_blank" rel="noopener" className="btn btn-outline-warning float-right mt-4" style={{paddingLeft: "40px", paddingRight: "40px"}}><i className="fa fa-play pr-2"></i>Watch {tMovie.Type}</a> : null}
                     </div>
                 </div>
             </div>
