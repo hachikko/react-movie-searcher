@@ -1,9 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import './Components.css';
 import defaultimg from '../images/notfound-sm-v.svg';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/themes/translucent.css';
+import 'tippy.js/dist/tippy.css';
 
 function MoreInfo({ match }) {
     const [thisMovie, setMData] = useState(null);
+    const [bookmarkclick, setClicked] = useState(false);
+    const [bookmarkcheck, setBookmarkCheck] = useState(0);
+    const [checker, setChecker] = useState(false);
+    var movieArr = [];
+
+    class MovieList {
+        constructor(poster, imdbID, title, plot) {
+            this.poster = poster;
+            this.imdbID = imdbID;
+            this.title = title;
+            this.plot = plot;
+        }
+    }
 
     useEffect(() => {
         let url = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&i=${match.params.id}`;
@@ -13,7 +29,53 @@ function MoreInfo({ match }) {
             fetchMovieData(xml.response);
         }
         xml.send();
-    },[])
+    }, [match.params.id])
+
+    useEffect(() => {
+        if(localStorage.getItem("wishlist_data")) {
+            let data = JSON.parse(localStorage.getItem("wishlist_data"));
+            data.forEach((d) => {
+                movieArr.push(d);
+            })
+            setMovieData();
+            console.log(movieArr);
+        }
+    })
+
+    useEffect(() => {
+        if(bookmarkclick /* && bookmarkcheck % 2 !== 0 */ && thisMovie !== null) {
+            let storageObject = new MovieList(tMovie.Poster, tMovie.imdbID, tMovie.Title, tMovie.Plot.replace(tMovie.Plot.substring(28, tMovie.Plot.length), "..."));
+            movieArr.push(storageObject);
+            setMovieData();
+            console.log(movieArr);
+        }
+        if(bookmarkcheck % 2 === 0 && bookmarkcheck !== 0 && !bookmarkclick && thisMovie !== null) {
+            for(let i = 0; i < movieArr.length; i++) {
+                if(movieArr[i].imdbID.match(tMovie.imdbID) !== null) {
+                    movieArr.splice(movieArr.indexOf[i], 1);
+                    console.log(movieArr);
+                    setMovieData();
+                }
+                else if(movieArr[i].imdbID.match(tMovie.imdbID) === null) {
+                    console.log(movieArr[i].imdbID);
+                }
+            }
+        }
+        if(movieArr.length > 0 && thisMovie !== null) {
+            for(let i = 0; i < movieArr.length; i++) {
+                if(movieArr[i].imdbID.match(tMovie.imdbID) !== null) {
+                    setChecker(true);
+                    console.log(movieArr[i].imdbID);
+                    break;
+                }
+                if(movieArr[i].imdbID.match(tMovie.imdbID) === null) {
+                    setChecker(false);
+                    console.log(movieArr[i].imdbID);
+                }
+                console.log(checker);
+            }
+        }
+    })
 
     function fetchMovieData(data) {
         setMData(data);
@@ -23,6 +85,15 @@ function MoreInfo({ match }) {
     let myMovie;
     let movieInfo;
     console.log(tMovie);
+
+    function setMovieData() {
+        localStorage.setItem("wishlist_data", JSON.stringify(movieArr));
+    }
+
+    function bookmarkMovie() {
+        setClicked(!bookmarkclick);
+        setBookmarkCheck(bookmarkcheck+1);
+    }
 
     if(thisMovie !== null) {
         myMovie =  (
@@ -34,7 +105,11 @@ function MoreInfo({ match }) {
                         </div>
                     <div className="pt-5 w-100 dFlexSpaced-b">
                         <button className="btn btn-outline-warning mb-2" onClick={() => window.history.back()}><i className="fa fa-arrow-left pr-2"></i>Go Back</button>
-                        <span type="button" data-toggle="tooltip" data-placement="top" title="Add To WishList"><i className="far fa-bookmark pr-3 text-white"></i></span>
+                        <Tippy content="Add To WishList" interactiveBorder={30} theme="translucent" placement="top" className={bookmarkclick ? "d-none" : "mr-3"}>
+                            <Tippy content={bookmarkclick ? "Added To WishList" : null} interactiveBorder={30} theme="translucent" trigger="click" className={bookmarkclick ? "mr-3" : "d-none"} >
+                                <span type="button" id="bookmark" onClick={bookmarkMovie}><i className={/* (checker && bookmarkclick ? "far fa-bookmark mr-3 text-white" : "fas fa-bookmark mr-3 text-primary") || */(checker || bookmarkclick ? "fas fa-bookmark mr-3 text-primary" : "far fa-bookmark mr-3 text-white")/*TODO: Fix This algorithm*/}></i></span>
+                            </Tippy>
+                        </Tippy>
                     </div>
                     </div>
                 </>
