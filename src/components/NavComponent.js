@@ -14,7 +14,7 @@ function Nav() {
         else if(window.location.pathname !== "/") {
             setState(true);
         }
-    })
+    }, [])
     
     function search(e) {
         let searchInput = document.querySelector("#searchInput").value;

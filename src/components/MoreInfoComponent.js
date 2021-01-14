@@ -9,7 +9,8 @@ function MoreInfo({ match }) {
     const [thisMovie, setMData] = useState(null);
     const [bookmarkclick, setClicked] = useState(false);
     const [bookmarkcheck, setBookmarkCheck] = useState(0);
-    const [checker, setChecker] = useState(false);
+    const [tippyText, setTippyText] = useState("Add To WishList");
+    const [bookmarkstate, setBookmarkState] = useState("far fa-bookmark mr-3 text-white");
     var movieArr = [];
 
     class MovieList {
@@ -31,56 +32,68 @@ function MoreInfo({ match }) {
         xml.send();
     }, [match.params.id])
 
+    function fetchMovieData(data) {
+        setMData(data);
+    }
+
     useEffect(() => {
         if(localStorage.getItem("wishlist_data")) {
             let data = JSON.parse(localStorage.getItem("wishlist_data"));
             data.forEach((d) => {
                 movieArr.push(d);
             })
-            setMovieData();
-            console.log(movieArr);
+            localStorage.setItem("wishlist_data", JSON.stringify(movieArr));
         }
-    })
-
-    useEffect(() => {
-        if(bookmarkclick /* && bookmarkcheck % 2 !== 0 */ && thisMovie !== null) {
+        if(bookmarkcheck % 2 !== 0) {
             let storageObject = new MovieList(tMovie.Poster, tMovie.imdbID, tMovie.Title, tMovie.Plot.replace(tMovie.Plot.substring(28, tMovie.Plot.length), "..."));
             movieArr.push(storageObject);
             setMovieData();
+            setBookmarkState("fas fa-bookmark mr-3 text-primary");
             console.log(movieArr);
         }
-        if(bookmarkcheck % 2 === 0 && bookmarkcheck !== 0 && !bookmarkclick && thisMovie !== null) {
-            for(let i = 0; i < movieArr.length; i++) {
-                if(movieArr[i].imdbID.match(tMovie.imdbID) !== null) {
-                    movieArr.splice(movieArr.indexOf[i], 1);
-                    console.log(movieArr);
-                    setMovieData();
-                }
-                else if(movieArr[i].imdbID.match(tMovie.imdbID) === null) {
-                    console.log(movieArr[i].imdbID);
-                }
-            }
+        if(bookmarkcheck % 2 === 0 && movieArr.length > 0 && thisMovie !== null && !bookmarkclick) {
+            movieArr.pop();
+            setMovieData();
+            setBookmarkState("far fa-bookmark mr-3 text-white");
+            setTippyText("Add To WishList");
         }
-        if(movieArr.length > 0 && thisMovie !== null) {
+    }, [bookmarkcheck])
+
+    useEffect(() => {
+        if(movieArr.length > 0) {
             for(let i = 0; i < movieArr.length; i++) {
-                if(movieArr[i].imdbID.match(tMovie.imdbID) !== null) {
-                    setChecker(true);
-                    console.log(movieArr[i].imdbID);
+                if(movieArr[i].imdbID.match(match.params.id) !== null) {
+                    setBookmarkState("fas fa-bookmark mr-3 text-primary");
+                    setTippyText("Added To WishList");
                     break;
                 }
-                if(movieArr[i].imdbID.match(tMovie.imdbID) === null) {
-                    setChecker(false);
-                    console.log(movieArr[i].imdbID);
+                else if(movieArr[i].imdbID.match(match.params.id) === null) {
+                    setBookmarkState("far fa-bookmark mr-3 text-white");
+                    setTippyText("Add To WishList");
+                    continue;
                 }
-                console.log(checker);
             }
         }
-    })
+    }, [match.params.id])
 
-    function fetchMovieData(data) {
-        setMData(data);
-    }
-
+    useEffect(() => {
+        if(movieArr.length > 0 && bookmarkclick) {
+            for(let i = 0; i < movieArr.length; i++) {
+                for(let j = 0; j < movieArr.length; j++) {
+                    if(i !== j) {
+                        if(movieArr[i].imdbID === movieArr[j].imdbID) {
+                            console.log(movieArr);
+                            movieArr.splice(movieArr.indexOf(movieArr[i]), 1);
+                            setMovieData();
+                            console.log(movieArr);
+                        }
+                    }
+                }
+            }
+        }
+        
+    }, [bookmarkclick, movieArr])
+    
     let tMovie = JSON.parse(thisMovie);
     let myMovie;
     let movieInfo;
@@ -105,9 +118,9 @@ function MoreInfo({ match }) {
                         </div>
                     <div className="pt-5 w-100 dFlexSpaced-b">
                         <button className="btn btn-outline-warning mb-2" onClick={() => window.history.back()}><i className="fa fa-arrow-left pr-2"></i>Go Back</button>
-                        <Tippy content="Add To WishList" interactiveBorder={30} theme="translucent" placement="top" className={bookmarkclick ? "d-none" : "mr-3"}>
+                        <Tippy content={tippyText} interactiveBorder={30} theme="translucent" placement="top" className={bookmarkclick ? "d-none" : "mr-3"}>
                             <Tippy content={bookmarkclick ? "Added To WishList" : null} interactiveBorder={30} theme="translucent" trigger="click" className={bookmarkclick ? "mr-3" : "d-none"} >
-                                <span type="button" id="bookmark" onClick={bookmarkMovie}><i className={/* (checker && bookmarkclick ? "far fa-bookmark mr-3 text-white" : "fas fa-bookmark mr-3 text-primary") || */(checker || bookmarkclick ? "fas fa-bookmark mr-3 text-primary" : "far fa-bookmark mr-3 text-white")/*TODO: Fix This algorithm*/}></i></span>
+                                <span type="button" id="bookmark" onClick={bookmarkMovie}><i className={bookmarkstate}></i></span>
                             </Tippy>
                         </Tippy>
                     </div>

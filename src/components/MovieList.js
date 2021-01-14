@@ -38,6 +38,7 @@ function MovieList(props) {
 
     let movie_D = JSON.parse(movieData);
     let movies;
+    let pageBtns;
     let count = 0;
     console.log(movie_D);
     if(movieData !== null) {
@@ -63,25 +64,25 @@ function MovieList(props) {
                             </div>
                         </div>
                     </div>
-                );
-        });
+                );  
+            }
+        );
+        pageBtns = (
+                <div className="col-12 dFlex justify-content-between">
+                    {pageCount > 1 ? <button className="btn btn-outline-warning" onClick={() => setPageCount(pageCount-1)}><i className="fa fa-arrow-left pr-2"></i>Previous</button> : <div></div>}
+                    {movie_D.Search.length < 10 ? <div></div> : <button className="btn btn-outline-warning" onClick={() => setPageCount(pageCount+1)}><i className="fa fa-arrow-right pr-2"></i>Next</button>}
+                </div>
+            );
         }
         else if(movie_D.Response === "False") {
             movies = (
-                <div className="dFlexColSpaced" style={{width: "50%", height: "50%"}}>
+                <div className="dFlexColSpaced w-100 w-sm-50 h-50">
                     <img src={binocular} width="200" height="100" alt="not found image" />
                     <h2>Movie Not Found!</h2>
                 </div>
             );
         }
     }
-
-    let pageBtns = (
-        <div className="col-12 dFlex justify-content-between">
-            {movieData !== null && pageCount > 1 ? <button className="btn btn-outline-warning" onClick={() => setPageCount(pageCount-1)}><i className="fa fa-arrow-left pr-2"></i>Previous</button> : <div></div>}
-            {movieData !== null && movie_D.Search.length < 10 ? <div></div> : <button className="btn btn-outline-warning" onClick={() => setPageCount(pageCount+1)}><i className="fa fa-arrow-right pr-2"></i>Next</button>}
-        </div>
-    )
 
     return (
         <div className="container-fluid" style={{paddingTop: "20px", minHeight: "91.5vh"}}>
