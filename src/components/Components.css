@@ -84,6 +84,15 @@
     pointer-events: all;
 }
 
+.media-row {
+    cursor: pointer;
+    transition: background 0.25s ease;
+}
+
+.media-row:hover {
+    background: #282829 !important;
+}
+
 .dFlex {
     display: flex;
     align-items: center;
@@ -187,6 +196,10 @@
     width: 300px; 
 }
 
+.b-notification, .delete-btn {
+    height: 100%;
+}
+
 @media screen and (max-width: 768px) {
     .movie-card {
         width: 45%;
@@ -200,6 +213,12 @@
     .card-img-show {
         height: 80%;
         width: 80%;
+    }
+    .wishlist-plot {
+        font: 0.95em Montserrat, sans-serif;
+    }
+    .b-notification, .delete-btn {
+        height: 50% !important;
     }
 }
 

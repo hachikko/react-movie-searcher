@@ -45,7 +45,7 @@ function MoreInfo({ match }) {
             localStorage.setItem("wishlist_data", JSON.stringify(movieArr));
         }
         if(bookmarkcheck % 2 !== 0) {
-            let storageObject = new MovieList(tMovie.Poster, tMovie.imdbID, tMovie.Title, tMovie.Plot.replace(tMovie.Plot.substring(28, tMovie.Plot.length), "..."));
+            let storageObject = new MovieList(tMovie.Poster, tMovie.imdbID, tMovie.Title, tMovie.Plot.replace(tMovie.Plot.substring(35, tMovie.Plot.length), "..."));
             movieArr.push(storageObject);
             setMovieData();
             setBookmarkState("fas fa-bookmark mr-3 text-primary");

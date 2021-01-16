@@ -9,7 +9,7 @@ function MovieList(props) {
     const [pageCount, setPageCount] = useState(1);
 
     const history = useHistory();
-    
+
     useEffect(() => {
         let url = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&s=${props.searchValue.replace(/-+/g, " ")}&page=${pageCount}`;
         let xml = new XMLHttpRequest();
@@ -18,11 +18,11 @@ function MovieList(props) {
             fetchData(xml.response);
         }
         xml.send();
-
+        
         if(!sessionStorage.pathname) {
             sessionStorage.setItem("pathname", JSON.stringify(`/search/${props.searchValue}`));
         }
-    
+        
         if(sessionStorage.pathname) {
             let previousPathname = JSON.parse(sessionStorage.getItem("pathname"));
             if(window.location.pathname !== previousPathname) {
