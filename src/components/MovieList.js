@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import defaultimg from '../images/notfound.svg';
 import binocular from '../images/binocular.svg';
 import './Components.css';
@@ -44,16 +44,13 @@ function MovieList(props) {
     console.log(movie_D);
     if(movieData !== null) {
         if(movie_D.Response === "True") {
-            for(let i = 0; i < movie_D.Search.length; i++) {
-                 count += 7.7;
-            }
         movies = movie_D.Search.map((movie) => {
                 return (
-                    <div key={movie.imdbID} className="card movie-card" onClick={() => history.push(`/id/${movie.imdbID}`)} style={movie_D.Search.length < 10 ? {height: "auto"} : {height: `calc(100% - ${count.toFixed()}%)`}}>
-                        <img src={movie.Poster === "N/A" ? defaultimg : movie.Poster} alt={`Movie: ${movie.Title}`} width="100" style={{height: "80%"}} className="img-fluid card-img-top" />
+                    <div key={movie.imdbID} className="card movie-card" onClick={() => history.push(`/id/${movie.imdbID}`)} style={movie_D.Search.length < 10 ? {height: "auto"} : {height: "22.5%"}}>
+                        <img src={movie.Poster === "N/A" ? defaultimg : movie.Poster} alt={`Movie: ${movie.Title}`} style={{width: "100%", height: "80%"}} className="img-fluid card-img-top" />
                         <div className="card-img-overlay">
-                            <i className="fas fa-angle-double-right text-white h1" /* style={{color: "#f5a700"}} */></i><br/><br/>
-                            <span className="text-white d-none d-sm-flex">Click to get more details<br/>on<br/>{movie.Title}</span>
+                            <i className="fas fa-angle-double-right text-white h1"></i><br/><br/>
+                            <span className="text-white d-none d-sm-flex fpoppins-1">Click to get more details<br/>on<br/>{movie.Title}</span>
                         </div>
                         <div className="card-body">
                             <div className="col-12 px-0">

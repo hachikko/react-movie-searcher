@@ -4,11 +4,13 @@ import './Components.css';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/themes/translucent.css';
 import 'tippy.js/dist/tippy.css';
+import cantfindimg from '../images/binocular-2.svg';
 
 function WishList() {
     const [placement, setPlacement] = useState("right");
     const history = useHistory();
     let bookmarkedData;
+    let wdata = localStorage.getItem("wishlist_data") ? JSON.parse(localStorage.getItem("wishlist_data")) : "whatsup";
 
     let media = window.matchMedia("(max-width: 770px)");
     useEffect(() => {
@@ -61,7 +63,14 @@ function WishList() {
             )
         })
     }
-    
+    if(wdata.length === 0 || !localStorage.getItem("wishlist_data")) {
+        bookmarkedData = (
+            <div className="row dFlexColSpaced mx-auto mt-5 text-center empty-container" style={{background: "#383838", height: "50vh", width: "50%", borderRadius: "10px", boxShadow: "10px 10px 10px #1c1c1c"}}>
+                <img src={cantfindimg} width="150" height="150" alt="can't find wishlist data" />
+                <span className="fmont-1-1 torange">Nothing saved to your wishlist yet</span>
+            </div>
+        )
+    }
 
     let wishlistHeading = (
         <div className="row" style={{height: "50px"}}>
@@ -73,7 +82,7 @@ function WishList() {
 
     return (
         <div className="container-fluid" style={{background: "#2b2b2b", minHeight: "91.5vh", height: "auto", paddingBottom: "10px"}}>
-            {localStorage.getItem("wishlist_data") ? wishlistHeading : <div></div>}
+            {wishlistHeading}
             <div>{bookmarkedData}</div>
         </div>
     );
