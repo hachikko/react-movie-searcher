@@ -51,7 +51,6 @@ function MoreInfo({ match }) {
             movieArr.push(storageObject);
             setMovieData();
             setBookmarkState("fas fa-bookmark mr-3 text-primary");
-            console.log(movieArr);
         }
         if(bookmarkcheck % 2 === 0 && movieArr.length > 0 && thisMovie !== null && !bookmarkclick) {
             movieArr.pop();
@@ -84,10 +83,8 @@ function MoreInfo({ match }) {
                 for(let j = 0; j < movieArr.length; j++) {
                     if(i !== j) {
                         if(movieArr[i].imdbID === movieArr[j].imdbID) {
-                            console.log(movieArr);
                             movieArr.splice(movieArr.indexOf(movieArr[i]), 1);
                             setMovieData();
-                            console.log(movieArr);
                         }
                     }
                 }
@@ -99,7 +96,6 @@ function MoreInfo({ match }) {
     let tMovie = JSON.parse(thisMovie);
     let myMovie;
     let movieInfo;
-    console.log(tMovie);
 
     function setMovieData() {
         localStorage.setItem("wishlist_data", JSON.stringify(movieArr));

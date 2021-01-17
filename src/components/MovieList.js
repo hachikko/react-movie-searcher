@@ -41,7 +41,6 @@ function MovieList(props) {
     let movies;
     let pageBtns;
     let count = 0;
-    console.log(movie_D);
     if(movieData !== null) {
         if(movie_D.Response === "True") {
         movies = movie_D.Search.map((movie) => {

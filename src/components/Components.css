@@ -200,6 +200,12 @@
     height: 100%;
 }
 
+@media screen and (max-width: 576px) {
+    .card-img-show {
+        width: 85% !important;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .movie-card {
         width: 45%;
@@ -212,7 +218,7 @@
     }
     .card-img-show {
         height: 80%;
-        width: 80%;
+        width: 60%;
     }
     .wishlist-plot {
         font: 0.95em Montserrat, sans-serif;

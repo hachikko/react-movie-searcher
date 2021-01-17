@@ -53,7 +53,7 @@ function Nav() {
                     <NavLink to="/" >
                         <div className="dFlex" style={{height: "40px", width: "150px"}}>
                             <img src={movielogo} height="40" width="40" className={transform ? "navbar-brand mr-auto d-none" : "navbar-brand"}/>
-                            <span className="text-white fmont-1 d-none d-md-inline">Searcher</span>
+                            <span className={transform ? "d-none" : "text-white fmont-1 d-none d-md-inline"}>Searcher</span>
                         </div>
                         </NavLink>
                     <div className="container mr-0 pr-0">
