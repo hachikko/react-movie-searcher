@@ -30,6 +30,7 @@ function MovieList(props) {
                 sessionStorage.setItem("pathname", JSON.stringify(`/search/${props.searchValue}`));
             }
         }
+        return () => xml.abort();
     })
 
     function fetchData(data) {
