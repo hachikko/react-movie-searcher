@@ -4,4 +4,4 @@ This is a feature rich movie searcher application created with `react`, `bootstr
 <br>
 <h3>Site</h3>
 <br>
-The link to the deployed site is [link](https://awesome-moviesearcher.netlify.app/)
+The link to the deployed site is https://awesome-moviesearcher.netlify.app/
