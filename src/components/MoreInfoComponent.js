@@ -23,7 +23,7 @@ function MoreInfo({ match }) {
     }
 
     useEffect(() => {
-        let url = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&i=${match.params.id}`;
+        let url = `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&i=${match.params.id}`;
         let xml = new XMLHttpRequest();
         xml.open("GET", url, true);
         xml.onload = () => {

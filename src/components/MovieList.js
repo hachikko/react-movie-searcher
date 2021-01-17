@@ -11,7 +11,7 @@ function MovieList(props) {
     const history = useHistory();
 
     useEffect(() => {
-        let url = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&s=${props.searchValue.replace(/-+/g, " ")}&page=${pageCount}`;
+        let url = `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&s=${props.searchValue.replace(/-+/g, " ")}&page=${pageCount}`;
         let xml = new XMLHttpRequest();
         xml.open("GET", url, true);
         xml.onload = () => {
