@@ -241,7 +241,7 @@ function MoreInfo({ match }) {
                 <div className="col-12 col-xl-8 dFlexCol" style={{background: "#3a3838", height: "100%"}}>
                     {movieInfo}
                     <div className="container">
-                        {thisMovie !== null ? <a href={`https://www1.cmovies.ac/movie/search/${tMovie.Title.replace(/\s+/g, "-").replace(/[:+|?|,+]/g, "").toLowerCase()}`} target="_blank" rel="noopener" className="btn btn-outline-warning float-right mt-4" style={{paddingLeft: "40px", paddingRight: "40px"}}><i className="fa fa-play pr-2"></i>Watch {tMovie.Type}</a> : null}
+                        {thisMovie !== null ? <a href={`https://fmovies.ps/search/${tMovie.Title.replace(/\s+/g, "-").replace(/[:+|?|,+]/g, "").toLowerCase()}`} target="_blank" rel="noopener" className="btn btn-outline-warning float-right mt-4" style={{paddingLeft: "40px", paddingRight: "40px"}}><i className="fa fa-play pr-2"></i>Watch {tMovie.Type}</a> : null}
                     </div>
                 </div>
             </div>
